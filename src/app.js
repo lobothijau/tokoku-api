@@ -1,6 +1,7 @@
 import express from 'express';
 import { healthRouter } from './routes/health.js';
 import { productsRouter } from './routes/products.js';
+import { ordersRouter } from './routes/orders.js';
 
 const publicDir = new URL('../public/', import.meta.url).pathname;
 
@@ -27,6 +28,7 @@ export function createApp({ pool }) {
 
   app.use(healthRouter(pool));
   app.use(productsRouter(pool));
+  app.use(ordersRouter(pool));
 
   // Route tidak dikenal
   app.use((req, res) => {
