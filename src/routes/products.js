@@ -4,9 +4,21 @@ export function productsRouter(pool) {
   const router = Router();
 
   router.get('/products', async (req, res) => {
-    const { rows } = await pool.query(
-      'SELECT id, name, category, price, stock, image FROM products ORDER BY id',
-    );
+    const { category } = req.query;
+    const selectProducts =
+      'SELECT id, name, category, price, stock, image FROM products';
+
+    // Kalau ada ?category=..., tampilkan hanya kategori itu.
+    // Kategori yang tidak dikenal menghasilkan daftar kosong (bukan error).
+    if (typeof category === 'string') {
+      const { rows } = await pool.query(
+        `${selectProducts} WHERE category = $1 ORDER BY id`,
+        [category],
+      );
+      return res.json(rows);
+    }
+
+    const { rows } = await pool.query(`${selectProducts} ORDER BY id`);
     res.json(rows);
   });
 

@@ -66,7 +66,7 @@ Kalau `DATABASE_URL` tidak diatur, aplikasi langsung berhenti dengan pesan error
 | Method | Path            | Keterangan                                                       |
 | ------ | --------------- | ---------------------------------------------------------------- |
 | GET    | `/health`       | `200 {"status":"ok"}`, atau `503` jika database tidak terjangkau |
-| GET    | `/products`     | Daftar semua produk                                              |
+| GET    | `/products`     | Daftar produk, bisa difilter dengan `?category=minuman`          |
 | GET    | `/products/:id` | Detail produk, `404` jika tidak ada                              |
 | POST   | `/orders`       | Membuat pesanan                                                  |
 | GET    | `/`             | Halaman depan (file statis di `public/`)                         |
@@ -76,6 +76,7 @@ Contoh:
 ```bash
 curl http://127.0.0.1:3000/health
 curl http://127.0.0.1:3000/products
+curl 'http://127.0.0.1:3000/products?category=minuman'
 curl http://127.0.0.1:3000/products/1
 
 curl -X POST http://127.0.0.1:3000/orders \

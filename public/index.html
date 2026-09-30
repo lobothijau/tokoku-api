@@ -30,7 +30,10 @@
     <h2>Endpoint</h2>
     <ul>
       <li><code>GET /health</code> - status aplikasi dan database</li>
-      <li><code>GET /products</code> - daftar produk</li>
+      <li>
+        <code>GET /products</code> - daftar produk, filter dengan
+        <code>?category=minuman</code>
+      </li>
       <li><code>GET /products/:id</code> - detail satu produk</li>
       <li><code>POST /orders</code> - buat pesanan</li>
     </ul>
@@ -39,6 +42,9 @@
     <ul>
       <li><a href="/health">/health</a></li>
       <li><a href="/products">/products</a></li>
+      <li>
+        <a href="/products?category=minuman">/products?category=minuman</a>
+      </li>
       <li><a href="/products/1">/products/1</a></li>
     </ul>
 

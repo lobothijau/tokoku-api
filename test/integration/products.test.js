@@ -30,6 +30,22 @@ test('GET /products mengembalikan 12 produk', async () => {
   ]);
 });
 
+test('GET /products?category=minuman hanya mengembalikan minuman', async () => {
+  const res = await request(app).get('/products?category=minuman');
+  assert.equal(res.status, 200);
+  assert.ok(res.body.length > 0);
+  assert.ok(res.body.length < 12);
+  for (const product of res.body) {
+    assert.equal(product.category, 'minuman');
+  }
+});
+
+test('GET /products?category=... yang tidak dikenal mengembalikan []', async () => {
+  const res = await request(app).get('/products?category=tidak-ada');
+  assert.equal(res.status, 200);
+  assert.deepEqual(res.body, []);
+});
+
 test('GET /products/:id mengembalikan satu produk', async () => {
   const res = await request(app).get('/products/1');
   assert.equal(res.status, 200);
