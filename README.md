@@ -1,12 +1,12 @@
 # Tokoku API
 
-Tokoku adalah API toko online sederhana yang dibuat dengan Node.js, Express 5, dan PostgreSQL. Proyek ini dipakai sebagai contoh dalam kursus video tentang deploy ke VPS dan CI/CD dengan GitHub Actions, jadi kodenya sengaja dibuat singkat dan mudah dibaca.
+Tokoku adalah API toko online sederhana yang dibuat dengan Node.js, Express 5, dan PostgreSQL. Proyek ini dipakai sebagai contoh dalam kelas video tentang deploy ke VPS dan CI/CD dengan GitHub Actions, jadi kodenya sengaja dibuat singkat dan mudah dibaca.
 
 Fitur: daftar produk, detail produk, pembuatan pesanan (dengan pengecekan dan pengurangan stok dalam satu transaksi), serta endpoint `/health`.
 
 ## Prasyarat
 
-- Node.js 24 atau lebih baru
+- Node.js 24 atau yang lebih baru
 - PostgreSQL (contoh di sini memakai versi 14)
 
 Tidak ada ORM dan tidak ada dotenv. File `.env` dimuat langsung oleh Node lewat `--env-file`.
@@ -34,14 +34,14 @@ npm run dev
 
 Buka http://127.0.0.1:3000 untuk melihat halaman depan.
 
-Catatan: `npm run seed` akan **menghapus** semua produk dan pesanan yang ada, lalu mengisi ulang 12 produk contoh. Jangan jalankan di database yang berisi data asli.
+Catatan: `npm run seed` akan **menghapus** semua produk dan pesanan yang ada, lalu mengisi ulang 12 produk contoh.
 
 ## Environment variable
 
 | Nama           | Keterangan                               | Default       |
 | -------------- | ---------------------------------------- | ------------- |
 | `DATABASE_URL` | Koneksi PostgreSQL (wajib)               | -             |
-| `HOST`         | Alamat bind server                       | `127.0.0.1`   |
+| `HOST`         | Alamat server                            | `127.0.0.1`   |
 | `PORT`         | Port server                              | `3000`        |
 | `NODE_ENV`     | `development`, `test`, atau `production` | `development` |
 
@@ -49,15 +49,15 @@ Kalau `DATABASE_URL` tidak diatur, aplikasi langsung berhenti dengan pesan error
 
 ## Script
 
-| Perintah          | Fungsi                                                   |
-| ----------------- | -------------------------------------------------------- |
-| `npm start`       | Menjalankan server (memakai environment variable sistem) |
-| `npm run dev`     | Menjalankan server dengan `.env` dan `--watch`           |
-| `npm run migrate` | Menerapkan file SQL di `migrations/` secara berurutan    |
-| `npm run seed`    | Mengisi 12 produk contoh (menghapus data lama)           |
-| `npm test`        | Menjalankan unit test dan integration test               |
-| `npm run lint`    | Memeriksa kode dengan ESLint                             |
-| `npm run format`  | Merapikan kode dengan Prettier                           |
+| Perintah          | Fungsi                                                       |
+| ----------------- | -------------------------------------------------------------|
+| `npm start`       | Menjalankan server (memakai environment variable sistem)     |
+| `npm run dev`     | Menjalankan server dengan `.env` dan `--watch`               |
+| `npm run migrate` | Mengaplikasikan file SQL di `migrations/` secara berurutan   |
+| `npm run seed`    | Mengisi 12 produk contoh (dan menghapus data lama)           |
+| `npm test`        | Menjalankan unit test dan integration test                   |
+| `npm run lint`    | Memeriksa kode dengan ESLint                                 |
+| `npm run format`  | Merapikan kode dengan Prettier                               |
 
 `npm run migrate` aman dijalankan berulang kali. Migrasi yang sudah diterapkan dicatat di tabel `schema_migrations` dan tidak dijalankan lagi.
 
@@ -92,11 +92,11 @@ Aturan `POST /orders`:
 - Stok tidak cukup: `409` (stok tidak berubah sama sekali).
 - Berhasil: `201` beserta `total` dalam rupiah (bilangan bulat).
 
-Semua harga adalah rupiah bulat, tanpa desimal.
+Semua harga adalah bilangan bulat, tanpa desimal.
 
 ## Testing
 
-Test memakai PostgreSQL sungguhan, bukan mock. Buat database terpisah dan file `.env.test`:
+Testing memakai PostgreSQL sungguhan, bukan mock. Buat database terpisah dan file `.env.test`:
 
 ```bash
 createdb tokoku_test
@@ -106,7 +106,7 @@ npm test
 
 Setiap integration test menjalankan migrasi dan seed terlebih dulu, jadi **jangan** arahkan `.env.test` ke database yang berisi data penting.
 
-## Catatan produksi
+## Catatan production
 
 - Atur environment variable langsung di server (misalnya lewat systemd), bukan lewat file `.env`: `DATABASE_URL`, `HOST`, `PORT`, dan `NODE_ENV=production`.
 - Jalankan dengan `npm start`, setelah `npm run migrate`.
