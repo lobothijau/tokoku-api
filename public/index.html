@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokoku API</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 640px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.6;
+        color: #222;
+      }
+      code {
+        background: #f0f0f0;
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+      }
+      li {
+        margin-bottom: 0.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tokoku API</h1>
+    <p>API toko online sederhana, dibuat untuk contoh deploy dan CI/CD.</p>
+
+    <h2>Endpoint</h2>
+    <ul>
+      <li><code>GET /health</code> - status aplikasi dan database</li>
+      <li><code>GET /products</code> - daftar produk</li>
+      <li><code>GET /products/:id</code> - detail satu produk</li>
+      <li><code>POST /orders</code> - buat pesanan</li>
+    </ul>
+
+    <h2>Coba sekarang</h2>
+    <ul>
+      <li><a href="/health">/health</a></li>
+      <li><a href="/products">/products</a></li>
+      <li><a href="/products/1">/products/1</a></li>
+    </ul>
+
+    <p>Gambar produk ada di <code>/images/&lt;nama-file&gt;.webp</code>.</p>
+  </body>
+</html>
